@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loginbg">
+
+    <RelativeLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="88dp"
+                android:layout_marginLeft="36.7dp"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ecom"
+                    android:textSize="31sp"
+                    android:textColor="#ffffff"/>
+            <View
+                    android:layout_width="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="34dp"
+                    android:layout_marginLeft="9.2dp"
+                    android:background="#ffffff"/>
+
+            <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Food Delivery"
+                    android:layout_marginLeft="8.5dp"
+                    android:textSize="20sp"
+                    android:textColor="#f05421"/>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:id="@+id/mobileRegLayout"
+                      android:layout_height="wrap_content">
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:hint="Phone Number"
+                    android:id="@+id/mobileNumber"
+                    android:layout_marginTop="54.7dp"
+                    android:layout_marginLeft="34.6dp"
+                    android:layout_marginRight="33.6dp"
+                    android:textColorHint="#ffffff"
+                    android:inputType="text"
+                    android:textColor="#ffffff"
+                    android:textSize="14.4sp" />
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#33ffffff"
+                    android:layout_marginLeft="34.6dp"
+                    android:layout_marginRight="33.6dp"
+                    android:layout_marginTop="6.5dp"/>
+
+        </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:visibility="gone"
+                  android:id="@+id/userDetailsregLayout"
+                  android:layout_height="wrap_content">
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:hint="Full Name"
+                android:id="@+id/fullName"
+                android:layout_marginTop="54.7dp"
+                android:layout_marginLeft="34.6dp"
+                android:layout_marginRight="33.6dp"
+                android:textColorHint="#ffffff"
+                android:inputType="text"
+                android:textColor="#ffffff"
+                android:textSize="14.4sp" />
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#33ffffff"
+                android:layout_marginLeft="34.6dp"
+                android:layout_marginRight="33.6dp"
+                android:layout_marginTop="6.5dp"/>
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:hint="Set Password"
+                android:id="@+id/newPassword"
+                android:layout_marginTop="54.7dp"
+                android:layout_marginLeft="34.6dp"
+                android:layout_marginRight="33.6dp"
+                android:textColorHint="#ffffff"
+                android:inputType="text"
+                android:textColor="#ffffff"
+                android:textSize="14.4sp" />
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#33ffffff"
+                android:layout_marginLeft="34.6dp"
+                android:layout_marginRight="33.6dp"
+                android:layout_marginTop="6.5dp"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/loginBtn"
+                android:layout_marginLeft="34.6dp"
+                android:layout_marginRight="33.6dp"
+                android:layout_marginTop="53.8dp"
+                android:background="@drawable/rectangle"
+                android:gravity="center_horizontal"
+                android:padding="16.4dp"
+                android:text="GET OTP"
+                android:textColor="#ffffff"
+                android:textSize="13.3sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_above="@+id/Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_1"
+            android:padding="16.4dp"
+            android:layout_marginTop="127.7dp"
+            android:layout_marginBottom="23dp"
+            android:layout_marginLeft="34.6dp"
+            android:layout_marginRight="33.6dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+        <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/facebook_176"
+                android:layout_gravity="center_horizontal"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CONNECT WITH FACEBOOK"
+                android:textSize="14.4sp"
+                android:layout_marginTop="3dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="#ffffff"/>
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/Linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="28.1dp"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account?"
+                android:textSize="14.4sp"
+                android:textColor="#ffffff"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:layout_marginLeft="5dp"
+                android:textSize="14.4sp"
+                android:textColor="#d22532"/>
+    </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:background="#68000000"
+                  android:id="@+id/loadingLayout"
+                  android:visibility="gone"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:layout_height="match_parent">
+        <ProgressBar android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1044288137061",
+    "firebase_url": "https://ecombuy-cc986.firebaseio.com",
+    "project_id": "ecombuy-cc986",
+    "storage_bucket": "ecombuy-cc986.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1044288137061:android:abac58925b2633e5d1238c",
+        "android_client_info": {
+          "package_name": "com.prathik.ecom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1044288137061-5ehh93ds828qqvmknmsas3mk04ve91qm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.prathik.ecom",
+            "certificate_hash": "5eeade64f90d36c4761472c4e0bd9b1f44c8d193"
+          }
+        },
+        {
+          "client_id": "1044288137061-cklt7eqquacobrgjutjubn7d4132vhs4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcour9ii5Ogr1njR54h8Rp16z0Z9G9bWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1044288137061-cklt7eqquacobrgjutjubn7d4132vhs4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
