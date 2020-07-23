@@ -211,6 +211,7 @@ class Register : AppCompatActivity() {
 
                     Log.d("EcomLog456","response code: ${userDetail?.message}")
                     Log.d("EcomLog456","response code: ${userDetail?.status}")
+                    Log.d("EcomLog456","id: ${userDetail?.user?.Id}")
 
 
                     if(userDetail?.status==200){
@@ -220,6 +221,7 @@ class Register : AppCompatActivity() {
                         PreferenceManager.setBoolean(PreferenceManager.SESSION,true)
                         PreferenceManager.setString(PreferenceManager.USER_NAME,userDetail.user?.userName)
                         PreferenceManager.setString(PreferenceManager.PHONE_NUMBER,userDetail.user?.mobileNumber)
+                        PreferenceManager.setString(PreferenceManager.USER_ID,userDetail.user?.Id)
 
                         val intent = Intent(this@Register, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -298,12 +300,14 @@ class Register : AppCompatActivity() {
                             Log.d("EcomLog456","username: ${userDetail.user?.userName}")
                             Log.d("EcomLog456","mobile: ${userDetail.user?.mobileNumber}")
                             Log.d("EcomLog456","password: ${userDetail.user?.password}")
+                            Log.d("EcomLog456","id: ${userDetail.user?.Id}")
 
 
                             PreferenceManager.setBoolean(PreferenceManager.SESSION,true)
                             PreferenceManager.setBoolean(PreferenceManager.IS_LOGGED_IN,true)
                             PreferenceManager.setString(PreferenceManager.USER_NAME,userDetail.user?.userName)
                             PreferenceManager.setString(PreferenceManager.PHONE_NUMBER,userDetail.user?.mobileNumber)
+                            PreferenceManager.setString(PreferenceManager.USER_ID,userDetail.user?.Id)
 
                             val intent = Intent(this@Register, MainActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

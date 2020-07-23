@@ -12,8 +12,8 @@ import android.os.Looper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
-import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.PendingResult
@@ -31,9 +31,9 @@ import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import kotlinx.android.synthetic.main.activity_set_location.*
+import kotlinx.android.synthetic.main.white_toolbar.*
 import java.util.*
 
 
@@ -55,12 +55,17 @@ class SetLocation : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_location)
+        supportActionBar?.hide()
+        setTitle()
+        setSearchAndBackButton()
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         //== GOOGLEE DOC
+
+
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
@@ -105,10 +110,13 @@ class SetLocation : AppCompatActivity(), OnMapReadyCallback {
                 for (location in locationResult.locations){
                     Log.d(TAG,"lat: "+location.latitude+ " long:"+location.longitude)
                     val newLoc = LatLng(location.latitude, location.longitude)
-//                    mMap?.addMarker(MarkerOptions().position(LatLng(location.latitude,location.longitude)).title("Marker in Sydney"))
-//                    mMap?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude,location.longitude)))
-//                    mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(newLoc, 18f), 5000, null)
+                    mMap?.clear()
+                    mMap?.addMarker(MarkerOptions().position(LatLng(location.latitude,location.longitude)).title("My Place").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin)))
+                    mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude,location.longitude),18F))
+                  // mMap?.animateCamera(CameraUpdateFactory.zoomTo(18f));
                     getPlaceName(newLoc)
+
+                    mapProgress.visibility=View.GONE
 
                 }
             }
@@ -118,10 +126,26 @@ class SetLocation : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
+    private fun setTitle(){
+        whiteToolbarText.text="Set Location"
+    }
+
+    private fun setSearchAndBackButton(){
+        whiteToolbarSearch.visibility= View.VISIBLE
+        whiteToolbarSearch.setOnClickListener {
+            onSearchCalled()
+        }
+
+        whiteToolbarBack.visibility=View.VISIBLE
+        whiteToolbarBack.setOnClickListener {
+            finish()
+        }
+    }
+
     fun createLocationRequest() {
          locationRequest = LocationRequest.create()?.apply {
             interval = 10000
-            fastestInterval = 5000
+            fastestInterval = 30000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
@@ -140,11 +164,22 @@ class SetLocation : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun getPlaceName( latlng:LatLng){
+        mapProgress.visibility=View.VISIBLE
         val gcd = Geocoder(this, Locale.getDefault())
         val addresses: List<Address> = gcd.getFromLocation(latlng.latitude,latlng.longitude, 1)
         if (addresses.isNotEmpty() ) {
             Log.d(TAG,"current place: "+addresses[0].locality)
             Log.d(TAG,"current place: "+addresses[0].adminArea)
+            Log.d(TAG,"current place: "+addresses[0].postalCode)
+            Log.d(TAG,"current place: "+addresses[0].extras)
+            Log.d(TAG,"current place: "+addresses[0].featureName)
+            Log.d(TAG,"current place: "+addresses[0].maxAddressLineIndex)
+            Log.d(TAG,"current place: "+addresses[0].premises)
+            Log.d(TAG,"current place: "+addresses[0].subAdminArea)
+            Log.d(TAG,"current place: "+addresses[0].subLocality)
+            mapProgress.visibility=View.GONE
+            address_locality.setText(addresses[0].featureName+", "+addresses[0].postalCode+", "+addresses[0].subLocality)
+
         } else {
 
         }
@@ -179,8 +214,9 @@ class SetLocation : AppCompatActivity(), OnMapReadyCallback {
             mMap?.addMarker(MarkerOptions()
                     .position(it)
                     .title("My Place")
-                    .snippet("This is my spot!")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
+                   // .snippet("This is my spot!")
+                    //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_pin)))
 
             mMap?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(it.latitude,it.longitude)))
             mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude,it.longitude), 18f), 5000, null)
@@ -214,26 +250,7 @@ class SetLocation : AppCompatActivity(), OnMapReadyCallback {
     }
 */
 
-   override fun onOptionsItemSelected(item: MenuItem):Boolean {
-        when (item.getItemId()) {
-            R.id.search -> {
-                onSearchCalled()
-                return true
-            }
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-            else -> return false
-        }
-    }
 
-
-    override fun onCreateOptionsMenu(menu: Menu):Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.place_search_menu, menu)
-        return true
-    }
 
 
     fun onSearchCalled() {

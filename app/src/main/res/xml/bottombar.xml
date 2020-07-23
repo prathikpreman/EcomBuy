@@ -1,0 +1,26 @@
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/ic_menu"
+        activeColor="#f15421"
+        inActiveColor="#d3d3d3"/>
+    <tab
+        id="@+id/tab_history"
+        icon="@drawable/ic_history"
+        activeColor="#f15421"
+        inActiveColor="#d3d3d3"/>
+
+    <tab
+        id="@/tab_noti"
+        icon="@drawable/ic_notifications"
+        activeColor="#f15421"
+        inActiveColor="#d3d3d3"/>
+
+    <tab
+        id="@/tab_profile"
+        icon="@drawable/profiles"
+        activeColor="#f15421"
+        inActiveColor="#d3d3d3"/>
+
+</tabs>
+

@@ -14,6 +14,7 @@ object PreferenceManager {
 
     var SESSION:String="SESSION"
     var USER_NAME:String="USER_NAME"
+    var USER_ID:String="USER_ID"
     var PHONE_NUMBER:String="PHONE_NUMBER"
     var IS_LOGGED_IN:String="IS_LOGGED_IN"
 

@@ -1,13 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <fragment
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:id="@+id/map"
-              tools:context=".SetLocation"
-              android:name="com.google.android.gms.maps.SupportMapFragment"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+    <include layout="@layout/white_toolbar" />
+
+    <fragment
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_weight="6"
+            android:layout_height="0dp"
+            android:id="@+id/map"
+            tools:context=".SetLocation"
+            android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+    <LinearLayout android:layout_width="match_parent"
+              android:background="#E3E3E3"
+                  android:minHeight="1dp"
+                  android:layout_height="wrap_content">
+        <ProgressBar
+                android:id="@+id/mapProgress"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/white"
+                android:indeterminate="true"
+                style="?android:attr/progressBarStyleHorizontal" />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_weight="4"
+                  android:padding="10dp"
+                  android:orientation="vertical"
+                  android:layout_height="0dp">
+
+        <TextView android:layout_width="match_parent"
+                  android:text="Picked Location"
+                  android:fontFamily="@font/mont_bold"
+                  android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <EditText
+                    android:id="@+id/address_room"
+                    android:fontFamily="@font/mont_medium"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:hint="Room/ Building Number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <EditText
+                    android:id="@+id/address_locality"
+                    android:fontFamily="@font/mont_medium"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:hint="locality"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <EditText
+                    android:id="@+id/address_landmark"
+                    android:fontFamily="@font/mont_medium"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:hint="Landmark"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button android:layout_width="match_parent"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/white"
+                android:text="Set as Current Location"
+                android:fontFamily="@font/mont_medium"
+                android:background="@drawable/rectangle"
+                android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
 
 
 

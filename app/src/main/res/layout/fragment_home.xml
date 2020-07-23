@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:id="@+id/homeNestedScrollView"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+              tools:context=".fragments.HomeFragment">
+
+
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_height="match_parent">
+
+
+        <TextView android:layout_width="match_parent"
+                  android:text="Hi"
+                  android:padding="10dp"
+                  android:textSize="18sp"
+                  android:id="@+id/hiNameTv"
+                  android:textColor="#151414"
+                  android:fontFamily="@font/mont_bold"
+                  android:layout_height="wrap_content"/>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:paddingLeft="10dp"
+                      android:paddingBottom="10dp"
+                      android:id="@+id/locationSelector"
+                      android:clickable="true"
+                      android:layout_gravity="center"
+                      android:gravity="center"
+                      android:layout_height="wrap_content">
+
+            <ImageView android:layout_width="15dp"
+                       android:src="@drawable/ic_location"
+                       android:tint="#4C4B4B"
+                       android:layout_gravity="center"
+                       android:layout_height="15dp"/>
+
+            <TextView android:layout_width="match_parent"
+                      android:text="Set Delivery Address"
+                      android:paddingLeft="10dp"
+                      android:layout_gravity="center"
+                      android:gravity="center|left"
+                      android:fontFamily="@font/mont_regular"
+                      android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+    <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/homseSlider"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:sliderAnimationDuration="600"
+            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderIndicatorAnimationDuration="600"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="15dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="2dp"
+            app:sliderIndicatorSelectedColor="#5A5A5A"
+            app:sliderIndicatorUnselectedColor="#FFF"
+            app:sliderScrollTimeInSec="1"
+            app:sliderStartAutoCycle="true" />
+
+    <TextView android:layout_width="match_parent"
+              android:text="OFFERS"
+              android:padding="10dp"
+              android:fontFamily="@font/mont_bold"
+              android:layout_height="wrap_content"/>
+
+        <com.prathik.ecom.customView.ShimmerLayout android:layout_width="match_parent"
+                                                   android:id="@+id/homeShimmer"
+                                                   android:layout_height="match_parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeRecyclerView"
+            android:layout_width="match_parent"
+            android:nestedScrollingEnabled="false"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false" />
+
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_marginTop="20dp"
+                  android:textSize="30sp"
+                  android:padding="10dp"
+                  android:textColor="#CCCCCC"
+                  android:fontFamily="@font/montblack"
+                  android:text="Made with Love"
+                  android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

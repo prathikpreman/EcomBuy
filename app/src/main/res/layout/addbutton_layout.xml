@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp">
+
+    <Button android:layout_width="wrap_content"
+            android:text="ADD"
+            android:textColor="#fff"
+            android:id="@+id/add_addbtn"
+            android:fontFamily="@font/mont_medium"
+            android:background="@drawable/rectangle"
+            android:layout_height="wrap_content"/>
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:id="@+id/add_countBtn"
+                  android:visibility="gone"
+                  android:layout_height="match_parent">
+        <Button android:layout_width="30dp"
+                android:text="-"
+                android:textColor="#fff"
+                android:id="@+id/add_minus"
+                android:textSize="16sp"
+                android:fontFamily="@font/mont_bold"
+                android:background="@drawable/green_button"
+                android:layout_height="wrap_content"/>
+
+        <TextView android:layout_width="40dp"
+                  android:text="0"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:fontFamily="@font/mont_bold"
+                  android:paddingLeft="10dp"
+                  android:id="@+id/add_count"
+                  android:paddingRight="10dp"
+                  android:layout_height="wrap_content"/>
+
+        <Button android:layout_width="30dp"
+                android:text="+"
+                android:id="@+id/add_plus"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:fontFamily="@font/mont_bold"
+                android:background="@drawable/green_button"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

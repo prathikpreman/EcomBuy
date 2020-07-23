@@ -3,11 +3,12 @@
               android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:background="#f5f5f5"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_marginBottom="1dp">
+
         <androidx.cardview.widget.CardView  android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="10.6dp"
@@ -29,14 +30,57 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                    <com.makeramen.roundedimageview.RoundedImageView
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:id="@+id/FoodImage_Id"
-                            android:src="@drawable/food_placeholder"
-                            android:scaleType="fitXY"
-                            app:riv_corner_radius="4dip" />
+                    <FrameLayout android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content">
+                        <com.makeramen.roundedimageview.RoundedImageView
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                android:layout_width="120dp"
+                                android:layout_height="80dp"
+                                android:id="@+id/FoodImage_Id"
+                                android:src="@drawable/food_placeholder"
+                                android:scaleType="fitXY"
+                                app:riv_corner_radius="4dip" />
+
+
+
+                            <FrameLayout android:layout_width="wrap_content"
+                                         android:layout_gravity="bottom"
+                                         android:layout_marginBottom="5dp"
+                                         android:layout_marginLeft="5dp"
+                                         android:layout_height="15dp">
+
+                                <TextView android:layout_width="match_parent"
+                                          android:text="20% OFFER"
+                                          android:paddingLeft="5dp"
+                                          android:textSize="10sp"
+                                          android:id="@+id/offer_tag"
+                                          android:layout_gravity="center"
+                                          android:gravity="center"
+                                          android:textColor="@color/white"
+                                          android:background="@drawable/offer_bg"
+                                          android:paddingRight="5dp"
+                                          android:fontFamily="@font/mont_regular"
+                                          android:layout_height="wrap_content"/>
+
+                                <com.facebook.shimmer.ShimmerFrameLayout android:layout_width="match_parent"
+                                                                         app:shimmer_auto_start="true"
+                                                                         app:shimmer_base_alpha="0"
+                                                                         app:shimmer_highlight_alpha="0.5"
+                                                                         android:layout_height="match_parent">
+
+
+                                    <TextView android:layout_width="match_parent"
+                                              android:background="@color/white"
+                                              android:layout_height="match_parent"/>
+                                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                            </FrameLayout>
+
+
+
+
+                    </FrameLayout>
+
 
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -49,6 +93,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="14.4sp"
+                                android:fontFamily="@font/mont_medium"
                                 android:textColor="#262628"
                                 android:text="Cocobolo Poolside Bar + Grill"/>
 
@@ -57,12 +102,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="11.5sp"
+                                android:fontFamily="@font/montmedium"
                                 android:textColor="#9b9b9b"
                                 android:text="60 Kub Pines Apt. 797"
                                 android:layout_marginTop="4dp"/>
 
                         <LinearLayout
                                 android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
@@ -81,6 +128,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="8.4dp"
                                     android:textSize="11.5sp"
+                                    android:fontFamily="@font/montmedium"
                                     android:textColor="#9b9b9b"
                                     android:text="238 reviews"/>
 
@@ -92,28 +140,73 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:layout_marginBottom="18dp">
 
-                    <ImageView
-                            android:id="@+id/History_Id"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_copy5"
-                            android:tint="#d22532"
-                            android:layout_marginLeft="2dp"/>
 
-                    <TextView
-                            android:id="@+id/Dollar_Id"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:paddingLeft="10dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="6dp"
-                            android:textSize="15sp"
-                            android:textColor="#d22532"
-                            android:text="$ 312.00"/>
+                    <LinearLayout android:layout_width="0dp"
+                                  android:layout_weight="1"
+                                  android:layout_gravity="center"
+                                  android:gravity="center|left"
+                                  android:layout_height="30dp">
+                        <ImageView
+                                android:id="@+id/History_Id"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/veg_icon"
+                                android:layout_marginLeft="2dp"/>
+
+                        <TextView
+                                android:id="@+id/Dollar_Id"
+                                android:layout_width="wrap_content"
+                                android:paddingLeft="10dp"
+                                android:layout_gravity="center"
+                                android:gravity="center|left"
+                                android:fontFamily="@font/montbold"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="6dp"
+                                android:textSize="16sp"
+                                android:textColor="@color/black"
+                                android:text="$ 312.00"/>
+
+                        <TextView
+                                android:id="@+id/oldPrice"
+                                android:layout_width="wrap_content"
+                                android:paddingLeft="5dp"
+                                android:layout_gravity="center"
+                                android:gravity="center|left"
+                                android:fontFamily="@font/mont_medium"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="6dp"
+                                android:textSize="12sp"
+                                android:textColor="@color/gray"
+                                android:text="$ 312.00"/>
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="0dp"
+                                  android:layout_weight="1"
+                                  android:layout_gravity="right|center"
+                                  android:paddingRight="12dp"
+                                  android:gravity="right|center"
+                                  android:layout_height="match_parent">
+
+
+                        <com.prathik.ecom.customView.AddButtonView android:layout_width="wrap_content"
+                                                                   android:id="@+id/foodAddbtnView"
+                                                                   android:layout_height="wrap_content"/>
+
+                       <!-- <Button android:layout_width="wrap_content"
+                                android:text="ADD"
+                                android:textColor="#fff"
+                                android:fontFamily="@font/mont_medium"
+                                android:background="@drawable/rectangle"
+                                android:layout_height="wrap_content"/>-->
+
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
             </LinearLayout>
