@@ -18,6 +18,8 @@ object PreferenceManager {
     var PHONE_NUMBER:String="PHONE_NUMBER"
     var IS_LOGGED_IN:String="IS_LOGGED_IN"
 
+    var SET_WORKMANAGER:String="SET_WORKMANAGER"
+
 
     fun init(context: Context) {
         if (mSharedPref == null) mSharedPref =

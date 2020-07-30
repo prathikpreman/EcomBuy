@@ -1,11 +1,13 @@
 package com.prathik.ecom
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.transition.Fade
+import com.prathik.ecom.fragments.CartFragment
 import com.prathik.ecom.fragments.HomeFragment
 import com.prathik.ecom.fragments.OrderHistoryFragment
 import com.prathik.ecom.utils.PreferenceManager
@@ -23,10 +25,14 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var homeFragment:HomeFragment
     lateinit var orderHistoryFragment: OrderHistoryFragment
+    lateinit var cartFragment: CartFragment
 
     private fun init(){
+        toolbarBackBtn.visibility=View.GONE
+
         homeFragment= HomeFragment()
         orderHistoryFragment= OrderHistoryFragment()
+        cartFragment= CartFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-       // startActivity(Intent(this,SetLocation::class.java))
+
 
 
     }
@@ -69,14 +75,39 @@ class MainActivity : AppCompatActivity() {
                     homeFragment.exitTransition=Fade(Gravity.LEFT)
                     toolbarText.text="Hi ${PreferenceManager.getString(PreferenceManager.USER_NAME,"")}"
 
-                    supportFragmentManager.beginTransaction().replace(R.id.home_container, homeFragment).commit();
+                    supportFragmentManager.beginTransaction().replace(R.id.home_container, homeFragment).commit()
+                    mainBottomBar.visibility=View.VISIBLE
+                    toolbarBackBtn.visibility=View.GONE
                 }
                 R.id.tab_history ->{
 
                     orderHistoryFragment.enterTransition=Fade(Gravity.LEFT)
                     orderHistoryFragment.exitTransition=Fade(Gravity.LEFT)
 
-                    supportFragmentManager.beginTransaction().replace(R.id.home_container, orderHistoryFragment).commit();
+                    supportFragmentManager.beginTransaction().replace(R.id.home_container, orderHistoryFragment).commit()
+                    mainBottomBar.visibility=View.VISIBLE
+                    toolbarBackBtn.visibility=View.GONE
+                }
+                R.id.tab_noti ->{
+
+//                    cartFragment.enterTransition=Fade(Gravity.LEFT)
+//                    cartFragment.exitTransition=Fade(Gravity.LEFT)
+
+                    supportFragmentManager.beginTransaction().replace(R.id.home_container, cartFragment).commit()
+                    homeToolbarPad.visibility=View.VISIBLE
+
+                    toolbarText.text="My Cart"
+
+
+                    toolbarBackBtn.visibility=View.VISIBLE
+                    toolbarBackBtn.setOnClickListener {
+
+                        mainBottomBar.selectTabAtPosition(0)
+                    }
+
+                    mainBottomBar.visibility=View.GONE
+
+
                 }
             }
 
@@ -84,6 +115,14 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onBackPressed() {
+
+        if(mainBottomBar.currentTabPosition==0){
+            super.onBackPressed()
+        }else{
+            mainBottomBar.selectTabAtPosition(0)
+        }
+    }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

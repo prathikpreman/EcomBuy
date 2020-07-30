@@ -1,48 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:visibility="gone"
-    android:id="@+id/homeToolbarPad"
-    android:background="@color/colorAccent">
+        android:id="@+id/homeToolbarPad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:visibility="gone">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <LinearLayout android:layout_width="0dp"
-                      android:layout_weight="6"
-                      android:layout_height="match_parent">
+        <LinearLayout
+                android:id="@+id/toolbarBackBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center">
+
+            <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_back_arrow"
+                    android:tint="@color/white" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8">
 
             <TextView
+                    android:id="@+id/toolbarText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ORDER HISTORY"
-                    android:id="@+id/toolbarText"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/mont_medium"
                     android:layout_gravity="center|left"
-                    android:textColor="#ffffff"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/mont_bold"
+                    android:text="ORDER HISTORY"
+                    android:textColor="@color/white"
                     android:textSize="16.7sp" />
 
 
         </LinearLayout>
 
-        <LinearLayout android:layout_width="0dp"
-                      android:layout_weight="1"
-                      android:layout_height="match_parent">
+        <LinearLayout
+                android:id="@+id/toolbarSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center">
 
             <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_gravity="right"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_search"
-                    android:tint="#ffffff"/>
+                    android:tint="@color/white" />
 
 
         </LinearLayout>
 
 
     </LinearLayout>
+
+
 </androidx.appcompat.widget.Toolbar>

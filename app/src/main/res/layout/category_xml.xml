@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_margin="5dp"
+              android:id="@+id/categoryParentLayout"
+              android:background="@drawable/ripple_whte"
+              android:clickable="true"
+              android:focusable="true"
+              android:layout_height="wrap_content">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:id="@+id/categoryImage"
+            android:src="@drawable/food_placeholder"
+            android:scaleType="fitXY"
+            app:riv_corner_radius="4dip" />
+
+    <TextView android:layout_width="match_parent"
+              android:text="Grocery"
+              android:layout_gravity="center"
+              android:id="@+id/categoryName"
+              android:layout_marginTop="5dp"
+              android:textColor="@color/black"
+              android:paddingBottom="10dp"
+              android:gravity="center"
+              android:fontFamily="@font/mont_regular"
+              android:layout_height="wrap_content"/>
+
+</LinearLayout>

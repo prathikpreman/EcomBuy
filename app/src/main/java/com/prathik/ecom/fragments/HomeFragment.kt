@@ -1,5 +1,6 @@
 package com.prathik.ecom.fragments
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -11,32 +12,51 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.*
 import com.google.gson.Gson
 import com.prathik.ecom.R
 import com.prathik.ecom.SetLocation
+import com.prathik.ecom.adapter.CategoryAdapter
 import com.prathik.ecom.adapter.FoodItemAdapter
 import com.prathik.ecom.adapter.HomeSliderAdapter
 import com.prathik.ecom.adapter.model.SliderItem
 import com.prathik.ecom.network.ApiClient
 import com.prathik.ecom.network.models.cart.CartItem
 import com.prathik.ecom.network.models.cart.GetCartModel
-import com.prathik.ecom.network.models.foods.FoodModelOld
-import com.prathik.ecom.network.models.getuser.GetUser
-import com.prathik.ecom.network.models.products.ProductDetailsItem
+import com.prathik.ecom.network.models.category.CategoriesDetailsItem
+import com.prathik.ecom.network.models.category.GetAllCategory
 import com.prathik.ecom.network.models.products.ProductModels
+import com.prathik.ecom.realm.CartRealmObject
+import com.prathik.ecom.realm.CategoryRealmInstance
+import com.prathik.ecom.realm.products.ProductsModelR
+import com.prathik.ecom.realm.GetRealmInstance
+import com.prathik.ecom.realm.ProductRealmInstance
+import com.prathik.ecom.realm.products.CategoryModelR
 import com.prathik.ecom.utils.PreferenceManager
+import com.prathik.ecom.workmanager.RefreshAPIWorker
+import com.prathik.ecom.workmanager.RefreshAPIWorker.Companion.KEY_COUNT_VALUE
+import com.prathik.ecom.workmanager.RefreshAPIWorker.Companion.KEY_WORKER
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController.ClickListener
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
+import kotlin.concurrent.schedule
 
 
 /**
@@ -49,16 +69,30 @@ class HomeFragment : Fragment(),FoodItemAdapter.OnProuctAddedListener {
     private val TAG="HomeFragment12"
 
     private lateinit var foodAdapter: FoodItemAdapter
-    private lateinit var modelArrayList: ArrayList<ProductDetailsItem>
+    private  var modelArrayList: RealmResults<ProductsModelR> ?= null
+
+    private lateinit var categoryAdapter: CategoryAdapter
+    private  var categoryList: RealmResults<CategoryModelR> ?= null
 
     private fun init() {
 
-        modelArrayList = ArrayList()
+         modelArrayList  = ProductRealmInstance.getAllProducts()
+         categoryList= CategoryRealmInstance.getAllCategory()
+
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
-        homeRecyclerView.layoutManager = layoutManager
-        homeRecyclerView.itemAnimator = DefaultItemAnimator()
         foodAdapter = FoodItemAdapter(activity as Context, modelArrayList,this)
         homeRecyclerView?.adapter = foodAdapter
+
+        val gridLayoutManager: RecyclerView.LayoutManager = GridLayoutManager(activity,3)
+        categoryAdapter = CategoryAdapter(activity as Context, categoryList)
+        categoryRecyclerView?.adapter = categoryAdapter
+
+
+        homeRecyclerView.layoutManager = layoutManager
+        homeRecyclerView.itemAnimator = DefaultItemAnimator()
+
+        categoryRecyclerView.layoutManager = gridLayoutManager
+        categoryRecyclerView.itemAnimator = DefaultItemAnimator()
 
     }
 
@@ -67,13 +101,11 @@ class HomeFragment : Fragment(),FoodItemAdapter.OnProuctAddedListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-       var view = inflater.inflate(R.layout.fragment_home, container, false)
+       return inflater.inflate(R.layout.fragment_home, container, false)
 
-
-
-
-        return view
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,7 +114,28 @@ class HomeFragment : Fragment(),FoodItemAdapter.OnProuctAddedListener {
         setAddressClick()
         setSlider()
         setNestedScrollViewListener()
-        getProductsfromAPI()
+
+        if (ProductRealmInstance.isProductAvaiableinRealm()){
+            homeShimmer.stopShimmer()
+            loadProductFromRealm()
+            Log.d(TAG,"Started with Realm")
+
+            Timer("SettingUp", false).schedule(5000) {
+                Log.d(TAG,"TIMER STARTED")
+                getProductsfromAPI()
+            }
+        }
+        else{
+            homeShimmer.startShimmer()
+            getProductsfromAPI()
+        }
+
+
+
+
+     //   periodicRequest()
+
+
 
     }
 
@@ -197,38 +250,110 @@ class HomeFragment : Fragment(),FoodItemAdapter.OnProuctAddedListener {
     }
 
 
-    private fun getProductsfromAPI(){
-        homeShimmer.startShimmer()
-        val call: Call<ProductModels> = ApiClient.getClient.getAllProducts()
-        call.enqueue(object : Callback<ProductModels> {
-            override fun onFailure(call: Call<ProductModels>, t: Throwable) {
-               Log.d(TAG,"API Error: ${t.message}")
-                homeShimmer.stopShimmer()
-            }
+    private fun getProductsfromAPI()  {
 
-            override fun onResponse(call: Call<ProductModels>, response: Response<ProductModels>) {
-                homeShimmer.stopShimmer()
+            val parentJob = Job()
+            val coroutineScope = CoroutineScope(Dispatchers.Default + parentJob)
 
-                Log.d(TAG,"URL :${response.raw().request().url()}")
-                val successResponse: String =  Gson().toJson(response.body())
-                Log.d(TAG, "successResponse: $successResponse")
+        coroutineScope.async {
 
-                var products: ProductModels? = response.body()
+            val call: Call<ProductModels> = ApiClient.getClient.getAllProducts()
+            call.enqueue(object : Callback<ProductModels> {
 
-                modelArrayList?.addAll(products?.productDetails as Collection<ProductDetailsItem>)
-                foodAdapter.notifyDataSetChanged()
-            }
+                override fun onFailure(call: Call<ProductModels>, t: Throwable) {
+                    Log.d(TAG,"API Error Products: ${t.message}")
+                    homeShimmer?.stopShimmer()
+                }
 
-        })
+                override fun onResponse(call: Call<ProductModels>, response: Response<ProductModels>) {
+                    homeShimmer?.stopShimmer()
+
+                    Log.d(TAG,"URL :${response.raw().request().url()}")
+                    val successResponse: String =  Gson().toJson(response.body())
+                    Log.d(TAG, "successResponse: $successResponse")
+
+                    var products: ProductModels? = response.body()
+
+                    //GetRealmInstance.deleteAllProducts()
+                    ProductRealmInstance.addToProduct(products)
+                    modelArrayList = ProductRealmInstance.getAllProducts()
+                }
+            })
+        }
+
+        coroutineScope.async {
+
+            val call: Call<GetAllCategory> = ApiClient.getClient.getAllCategory()
+            call.enqueue(object : Callback<GetAllCategory>{
+                override fun onFailure(call: Call<GetAllCategory>, t: Throwable) {
+                    Log.d(TAG,"API Error Category: ${t.message}")
+                }
+                override fun onResponse(call: Call<GetAllCategory>, response: Response<GetAllCategory>) {
+
+                    Log.d(TAG,"URL :${response.raw().request().url()}")
+                    val successResponse: String =  Gson().toJson(response.body())
+                    Log.d(TAG, "successResponse: $successResponse")
+
+                    var categories: GetAllCategory? = response.body()
+
+                    CategoryRealmInstance.addCategory(categories?.categoriesDetails as List<CategoriesDetailsItem>)
+                }
+
+            })
+        }
+
 
     }
 
+
+
+    fun loadProductFromRealm(){
+        modelArrayList = ProductRealmInstance.getAllProducts()
+  //      foodAdapter = FoodItemAdapter(activity as Context, modelArrayList,this)
+    //    homeRecyclerView?.adapter = foodAdapter
+    }
+
     override fun onProductAdded(count: Int, position: Int) {
-        if(count==0){
-            removeFromcartAPI(modelArrayList[position].Id)
-        }else{
-            addToCartAPI(modelArrayList[position].Id,count)
+        val id= modelArrayList?.get(position)?.product_Id
+        if(id!=null && modelArrayList!=null){
+            ProductRealmInstance.updateCartByProductId(id,count)
         }
+    }
+
+
+    fun periodicRequest(){
+
+        val workManager = WorkManager.getInstance(context as Activity)
+
+        workManager.cancelAllWorkByTag(KEY_COUNT_VALUE)
+
+//        val data: Data = Data.Builder()
+//            .putInt(KEY_COUNT_VALUE,20000)
+//            .build()
+
+        val constraints = Constraints.Builder()
+         //   .setRequiresCharging(true)
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+
+        val periodicWorkRequest = PeriodicWorkRequest
+            .Builder(RefreshAPIWorker::class.java,16, TimeUnit.MINUTES)
+            .addTag(KEY_COUNT_VALUE)
+            .setConstraints(constraints)
+         //   .setInputData(data)
+            .build()
+
+         workManager.enqueue(periodicWorkRequest)
+
+        workManager.getWorkInfoByIdLiveData(periodicWorkRequest.id)
+            .observe(this, androidx.lifecycle.Observer {
+                if(it.state.isFinished){
+                    val data = it.outputData
+                    val message = data.getString(KEY_WORKER)
+                    Toast.makeText(context,message,Toast.LENGTH_LONG).show()
+                }
+            })
     }
 
 

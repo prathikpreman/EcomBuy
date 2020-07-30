@@ -1,6 +1,7 @@
 package com.prathik.ecom.customView
 
 import android.annotation.TargetApi
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.customer_shimmer_layout.view.*
 class AddButtonView:LinearLayout {
 
     lateinit var onCountUpdatedListener: OnCountChangedListener
+    var isCancelDialogRequired=false
 
     @JvmOverloads
     constructor(
@@ -41,13 +43,24 @@ class AddButtonView:LinearLayout {
         }
 
         add_minus.setOnClickListener {
-            setCount((add_count.text.toString()).toInt() - 1)
+
+            if(isCancelDialogRequired && ((add_count.text.toString()).toInt() - 1)==0){
+
+                showDialog()
+
+            }else{
+                setCount((add_count.text.toString()).toInt() - 1)
+            }
+
+
         }
 
         add_addbtn.setOnClickListener {
             setCount(1)
         }
     }
+
+
 
 
    fun setCountListener(onCountUpdatedListener: OnCountChangedListener){
@@ -66,6 +79,18 @@ class AddButtonView:LinearLayout {
          onCountUpdatedListener.onCartCountUpdated(count)
      }
 
+
+    fun setCountFromAdapter(count:Int?){
+        add_count.text=count.toString()
+        if(count!=null && count>0){
+            add_addbtn.visibility=View.GONE
+            add_countBtn.visibility=View.VISIBLE
+        }else{
+            add_addbtn.visibility=View.VISIBLE
+            add_countBtn.visibility=View.GONE
+        }
+    }
+
     fun getCount():Int{
         return add_count.text as Int
     }
@@ -76,4 +101,22 @@ class AddButtonView:LinearLayout {
     }
 
 
+    fun showDialog(){
+
+        AlertDialog.Builder(context).apply {
+
+            setTitle("Remove from Cart ?")
+            setMessage("Are you sure you  want to remove this item")
+            setPositiveButton("Delete") { dialog, whichButton ->
+                setCount(0)
+            }
+            setNegativeButton("Cancel") { dialog, whichButton ->
+                dialog.dismiss()
+            }
+        }.create().show()
+    }
+
+
 }
+
+

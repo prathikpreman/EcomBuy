@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:background="#f5f5f5"
-              android:layout_height="wrap_content">
+        android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:background="#f5f5f5"
+        android:layout_height="wrap_content">
 
     <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginBottom="1dp">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp">
 
         <androidx.cardview.widget.CardView  android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="10.6dp"
-                                            android:layout_marginTop="6dp"
-                                            android:layout_marginBottom="2dp"
-                                            app:cardCornerRadius="3.8dp"
-                                            android:layout_marginRight="10.6dp">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="2dp"
+                app:cardCornerRadius="3.8dp"
+                android:layout_marginRight="10.6dp">
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                         android:orientation="horizontal">
 
                     <FrameLayout android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content">
+                            android:layout_height="wrap_content">
                         <com.makeramen.roundedimageview.RoundedImageView
                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:layout_width="120dp"
@@ -43,38 +43,38 @@
 
 
 
-                            <FrameLayout android:layout_width="wrap_content"
-                                         android:layout_gravity="bottom"
-                                         android:layout_marginBottom="5dp"
-                                         android:layout_marginLeft="5dp"
-                                         android:layout_height="15dp">
+                        <FrameLayout android:layout_width="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_height="15dp">
+
+                            <TextView android:layout_width="match_parent"
+                                    android:text="20% OFFER"
+                                    android:paddingLeft="5dp"
+                                    android:textSize="10sp"
+                                    android:id="@+id/offer_tag"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:textColor="@color/white"
+                                    android:background="@drawable/offer_bg"
+                                    android:paddingRight="5dp"
+                                    android:fontFamily="@font/mont_regular"
+                                    android:layout_height="wrap_content"/>
+
+                            <com.facebook.shimmer.ShimmerFrameLayout android:layout_width="match_parent"
+                                    app:shimmer_auto_start="true"
+                                    app:shimmer_base_alpha="0"
+                                    app:shimmer_highlight_alpha="0.5"
+                                    android:layout_height="match_parent">
+
 
                                 <TextView android:layout_width="match_parent"
-                                          android:text="20% OFFER"
-                                          android:paddingLeft="5dp"
-                                          android:textSize="10sp"
-                                          android:id="@+id/offer_tag"
-                                          android:layout_gravity="center"
-                                          android:gravity="center"
-                                          android:textColor="@color/white"
-                                          android:background="@drawable/offer_bg"
-                                          android:paddingRight="5dp"
-                                          android:fontFamily="@font/mont_regular"
-                                          android:layout_height="wrap_content"/>
+                                        android:background="@color/white"
+                                        android:layout_height="match_parent"/>
+                            </com.facebook.shimmer.ShimmerFrameLayout>
 
-                                <com.facebook.shimmer.ShimmerFrameLayout android:layout_width="match_parent"
-                                                                         app:shimmer_auto_start="true"
-                                                                         app:shimmer_base_alpha="0"
-                                                                         app:shimmer_highlight_alpha="0.5"
-                                                                         android:layout_height="match_parent">
-
-
-                                    <TextView android:layout_width="match_parent"
-                                              android:background="@color/white"
-                                              android:layout_height="match_parent"/>
-                                </com.facebook.shimmer.ShimmerFrameLayout>
-
-                            </FrameLayout>
+                        </FrameLayout>
 
 
 
@@ -146,10 +146,10 @@
 
 
                     <LinearLayout android:layout_width="0dp"
-                                  android:layout_weight="1"
-                                  android:layout_gravity="center"
-                                  android:gravity="center|left"
-                                  android:layout_height="30dp">
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:gravity="center|left"
+                            android:layout_height="30dp">
                         <ImageView
                                 android:id="@+id/History_Id"
                                 android:layout_width="16dp"
@@ -186,23 +186,23 @@
                     </LinearLayout>
 
                     <LinearLayout android:layout_width="0dp"
-                                  android:layout_weight="1"
-                                  android:layout_gravity="right|center"
-                                  android:paddingRight="12dp"
-                                  android:gravity="right|center"
-                                  android:layout_height="match_parent">
+                            android:layout_weight="1"
+                            android:layout_gravity="right|center"
+                            android:paddingRight="12dp"
+                            android:gravity="right|center"
+                            android:layout_height="match_parent">
 
 
                         <com.prathik.ecom.customView.AddButtonView android:layout_width="wrap_content"
-                                                                   android:id="@+id/foodAddbtnView"
-                                                                   android:layout_height="wrap_content"/>
+                                android:id="@+id/foodAddbtnView"
+                                android:layout_height="wrap_content"/>
 
-                       <!-- <Button android:layout_width="wrap_content"
-                                android:text="ADD"
-                                android:textColor="#fff"
-                                android:fontFamily="@font/mont_medium"
-                                android:background="@drawable/rectangle"
-                                android:layout_height="wrap_content"/>-->
+                        <!-- <Button android:layout_width="wrap_content"
+                                 android:text="ADD"
+                                 android:textColor="#fff"
+                                 android:fontFamily="@font/mont_medium"
+                                 android:background="@drawable/rectangle"
+                                 android:layout_height="wrap_content"/>-->
 
                     </LinearLayout>
 

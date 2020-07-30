@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        tools:context=".fragments.CartFragment">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/cart_layout"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_height="0dp">
+
+            <TextView android:layout_width="match_parent"
+                    android:text="My Cart"
+                    android:padding="10dp"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:gravity="center|left"
+                    android:id="@+id/hiNameTv"
+                    android:textColor="#151414"
+                    android:fontFamily="@font/mont_bold"
+                    android:layout_height="60dp"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cartRecyclerView"
+                    android:layout_width="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false" />
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/rectangle"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Cart Total: 300.00"
+                        android:fontFamily="@font/mont_medium"
+                        android:padding="16dp"
+                        android:id="@+id/cart_total_tv"
+                        android:textColor="@color/white"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:layout_width="1dp"
+                         android:background="@color/white"
+                         android:alpha="0.2"
+                         android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_height="match_parent"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:textColor="#ffffff"
+                        android:fontFamily="@font/mont_bold"
+                        android:text="Place Order"
+                        android:padding="16dp"
+                        android:gravity="center_horizontal"
+                        android:layout_height="wrap_content"/>
+
+                <ImageView
+                        android:layout_width="20dp"
+                        android:src="@drawable/ic_back_arrow"
+                        android:rotation="180"
+                        android:tint="@color/white"
+                        android:layout_height="30dp"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.prathik.ecom.customView.EmptyLayout
+            android:layout_width="match_parent"
+            app:titleText="Your cart is Empty"
+            android:id="@+id/cart_empty_layout"
+            android:layout_height="match_parent"/>
+
+
+
+</LinearLayout>

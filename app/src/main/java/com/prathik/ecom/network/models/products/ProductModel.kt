@@ -2,6 +2,7 @@ package com.prathik.ecom.network.models.products
 
 
 import com.google.gson.annotations.SerializedName
+import io.realm.RealmObject
 
 data class ProductDetailsItem( @SerializedName("offerValue")
                                val offerValue: Float = 0F,
@@ -20,13 +21,14 @@ data class ProductDetailsItem( @SerializedName("offerValue")
                               @SerializedName("_id")
                               val Id: String = "",
                               @SerializedName("categoryId")
-                              val categoryId: Int = 0,
+                              val categoryId: String = "",
                                @SerializedName("offerType")
                                val offerType: Int = 0,
                                @SerializedName("foodDescription")
                                val foodDescription: String = "",
                                @SerializedName("count")
                                val count:Int=0)
+
 
 
 data class ProductModels(@SerializedName("message")

@@ -2,6 +2,7 @@ package com.prathik.ecom.network
 
 import com.prathik.ecom.network.models.cart.CartItem
 import com.prathik.ecom.network.models.cart.GetCartModel
+import com.prathik.ecom.network.models.category.GetAllCategory
 import com.prathik.ecom.network.models.getuser.GetUser
 import com.prathik.ecom.network.models.products.ProductModels
 import retrofit2.Call
@@ -29,5 +30,10 @@ interface ApiInterface {
     fun removeFromCart(@Query("user_id") userId:String,
                   @Query("product_id") productId:String): Call<GetCartModel>
 
+
+    // CATEGORY
+
+    @GET("category/getAllCategories")
+    fun getAllCategory(): Call<GetAllCategory>
 
 }

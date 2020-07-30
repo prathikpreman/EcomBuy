@@ -2,22 +2,31 @@ package com.prathik.ecom.adapter
 
 import android.content.Context
 import android.graphics.Paint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.prathik.ecom.R
+import com.prathik.ecom.adapter.model.ProductsAdapterModel
 import com.prathik.ecom.customView.AddButtonView
-import com.prathik.ecom.network.models.products.ProductDetailsItem
+import com.prathik.ecom.realm.products.ProductsModelR
+import io.realm.RealmRecyclerViewAdapter
+import io.realm.RealmResults
 
-class FoodItemAdapter(private val context: Context, private val modelArrayList: ArrayList<ProductDetailsItem>, onProductAddedListener:OnProuctAddedListener) :
-    RecyclerView.Adapter<FoodItemAdapter.ViewHolder>() {
+class FoodItemAdapter public constructor(
+    context: Context,
+    var modelArrayList: RealmResults<ProductsModelR>?,
+    onProductAddedListener: OnProuctAddedListener
+) : RealmRecyclerViewAdapter<ProductsModelR, FoodItemAdapter.ViewHolder>(context,modelArrayList,true) {
 
-    var onProductAddedListener=onProductAddedListener
+    var contexts:Context?= context
+    var onProductAddedListener:OnProuctAddedListener?= onProductAddedListener
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -29,42 +38,42 @@ class FoodItemAdapter(private val context: Context, private val modelArrayList: 
     }
 
    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val (offerValue,foodName, offerPrice, reviewCount, price, imageUrl, V , Id,categoryId,offerType,foodDesc,count) = modelArrayList[position]
-        holder.foodname.text = foodName
-        holder.foodDesc.text = foodName
-        holder.reviewCount.text = reviewCount.toString()
+       val obj= modelArrayList?.get(position)
+       // val (offerValue,foodName, offerPrice, reviewCount, price, imageUrl, V , Id,categoryId,offerType,foodDesc,count) = modelArrayList[position]
+        holder.foodname.text = obj?.foodName
+        holder.reviewCount.text = obj?.reviewCount.toString()
 
         holder.foodOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
        // holder.Date_Id.text = Date_Id
-        holder.foodPrice.text = context.getString(R.string.rupee)+" "+price.toString()
+        holder.foodPrice.text = contexts?.getString(R.string.rupee)+" "+obj?.price.toString()
        // holder.foodImageUrl.setImageResource(FoodImage_Id)
-       Glide.with(context).load(imageUrl).centerCrop().into(holder.foodImageUrl);
+       contexts?.let { Glide.with(it).load(obj?.imageUrl).centerCrop().into(holder.foodImageUrl) };
       //  holder.History_Id.setImageResource(History_Id)
 
-       if(foodDesc=="") {
+       Log.d("Adapter123","Refreshed!!!")
+
+       if(obj?.foodDescription=="") {
            holder.foodDesc.visibility=View.GONE
        }else{
-           holder.foodDesc.text = foodDesc
+           holder.foodDesc.text = obj?.foodDescription
        }
 
-
-
-       if(offerPrice<price){  // Offer available
+       if(obj!=null && obj.offerPrice < obj.price){  // Offer available
            holder.offerTag.visibility=View.VISIBLE
-           holder.offerTag.text=getOfferSymbol(offerValue,offerType)
+           holder.offerTag.text=getOfferSymbol(obj?.offerValue,obj.offerType)
            holder.foodOldPrice.visibility=View.VISIBLE
-           holder.foodOldPrice.text="${context.getString(R.string.rupee)} $offerPrice"
+           holder.foodOldPrice.text="${contexts?.getString(R.string.rupee)} ${obj.offerPrice}"
        }else{
            holder.offerTag.visibility=View.GONE
            holder.foodOldPrice.visibility=View.GONE
        }
 
-       holder.foodAddbtnView.setCount(count)
+       holder.foodAddbtnView.setCountFromAdapter(obj?.count)
 
        holder.foodAddbtnView.setCountListener(object :AddButtonView.OnCountChangedListener{
            override fun onCartCountUpdated(count: Int) {
              //  Toast.makeText(context,"changed in adapter $count",Toast.LENGTH_LONG).show()
-               onProductAddedListener.onProductAdded(count,position)
+               onProductAddedListener?.onProductAdded(count,position)
            }
 
        })
@@ -73,7 +82,13 @@ class FoodItemAdapter(private val context: Context, private val modelArrayList: 
     }
 
     override fun getItemCount(): Int {
-        return modelArrayList.size
+        var size=0
+       return if(modelArrayList==null){
+            0
+        }else{
+            modelArrayList?.size!!
+        }
+
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -102,12 +117,12 @@ class FoodItemAdapter(private val context: Context, private val modelArrayList: 
         }
     }
 
-    fun getOfferSymbol( offerValue:Float, offerType:Int):String{
+    fun getOfferSymbol( offerValue:Float?, offerType:Int?):String{
 
         when(offerType){
 
             1->{  // FLAT
-                return  "${context.getString(R.string.rupee)} $offerValue OFF"
+                return  "${contexts?.getString(R.string.rupee)} $offerValue OFF"
             }
             2->{
                 return "$offerValue% OFF"

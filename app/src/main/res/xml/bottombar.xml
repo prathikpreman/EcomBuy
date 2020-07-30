@@ -11,13 +11,13 @@
         inActiveColor="#d3d3d3"/>
 
     <tab
-        id="@/tab_noti"
+        id="@+id/tab_noti"
         icon="@drawable/ic_notifications"
         activeColor="#f15421"
         inActiveColor="#d3d3d3"/>
 
     <tab
-        id="@/tab_profile"
+        id="@+id/tab_profile"
         icon="@drawable/profiles"
         activeColor="#f15421"
         inActiveColor="#d3d3d3"/>
