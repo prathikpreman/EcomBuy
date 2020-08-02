@@ -10,4 +10,9 @@ object GetRealmInstance {
     val instance: Realm = Realm.getDefaultInstance()
 
 
+    fun close(){
+        instance.close()
+    }
+
+
 }

@@ -24,7 +24,7 @@ class CartAdapter public constructor(
     context: Context,
     var modelArrayList: RealmResults<ProductsModelR>?,
     onProductAddedListener: OnProuctAddedListener
-) : RealmRecyclerViewAdapter<ProductsModelR, CartAdapter.ViewHolder>(context,modelArrayList,true) {
+) : RealmRecyclerViewAdapter<ProductsModelR, CartAdapter.ViewHolder>(modelArrayList,true) {
 
     var contexts:Context?= context
     var onProductAddedListener:OnProuctAddedListener?= onProductAddedListener
@@ -40,14 +40,15 @@ class CartAdapter public constructor(
     }
 
    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       val obj= modelArrayList?.get(position)
+       val obj= data?.get(position)
 
        if(obj!=null && obj.count > 0){
+
            holder.itemView.visibility=View.VISIBLE
-           holder.itemView.layoutParams = RecyclerView.LayoutParams(
-               ViewGroup.LayoutParams.MATCH_PARENT,
-               ViewGroup.LayoutParams.WRAP_CONTENT
-           )
+//           holder.itemView.layoutParams = RecyclerView.LayoutParams(
+//               ViewGroup.LayoutParams.MATCH_PARENT,
+//               ViewGroup.LayoutParams.WRAP_CONTENT
+//           )
 
 
            holder.foodname.text = obj?.foodName
@@ -79,7 +80,7 @@ class CartAdapter public constructor(
            })
        }else{
            holder.itemView.visibility=View.GONE
-           holder.itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
+        //   holder.itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
        }
 
     }
@@ -87,15 +88,15 @@ class CartAdapter public constructor(
 
     fun getPerPrice(price: Float,count:Int):String{
 
-        return "$count x ${contexts?.getString(R.string.rupee)} $price = ${count*price}"
+        return "$count x ${contexts?.getString(R.string.rupee)}$price = ${contexts?.getString(R.string.rupee)}${count*price}"
     }
 
     override fun getItemCount(): Int {
         var size=0
-        return if(modelArrayList==null){
+        return if(data==null){
             0
         }else{
-            modelArrayList?.size!!
+            data?.size!!
         }
 
 

@@ -1,5 +1,6 @@
 package com.prathik.ecom.network
 
+import com.prathik.ecom.network.models.appsettings.GetAppSettings
 import com.prathik.ecom.network.models.cart.CartItem
 import com.prathik.ecom.network.models.cart.GetCartModel
 import com.prathik.ecom.network.models.category.GetAllCategory
@@ -35,5 +36,10 @@ interface ApiInterface {
 
     @GET("category/getAllCategories")
     fun getAllCategory(): Call<GetAllCategory>
+
+    // APP SETTINGS
+
+    @GET("appSettings/get")
+    fun getAppSettings(): Call<GetAppSettings>
 
 }

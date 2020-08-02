@@ -23,11 +23,34 @@
     </FrameLayout>
 
 
+    <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:id="@+id/cartPopup"
+            android:visibility="gone"
+            app:cardCornerRadius="50dp"
+            app:cardBackgroundColor="@color/blue"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="100dp"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="wrap_content"
+                android:text="View Cart"
+                android:textColor="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:fontFamily="@font/mont_medium"
+                android:layout_height="wrap_content"/>
+    </androidx.cardview.widget.CardView>
+
+
     <com.roughike.bottombar.BottomBar
             android:id="@+id/mainBottomBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             app:bb_behavior="iconsOnly"
+            app:bb_longPressHintsEnabled="true"
             android:layout_gravity="bottom"
             android:gravity="bottom"
             android:layout_alignParentBottom="true"

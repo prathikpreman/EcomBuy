@@ -62,10 +62,9 @@ class CategoryProducts : AppCompatActivity(), FoodItemAdapter.OnProuctAddedListe
         toolbarText.text=CategoryRealmInstance.getCategoryNamebyId(categoryId)
     }
 
-    override fun onProductAdded(count: Int, position: Int) {
-        val id= modelArrayList?.get(position)?.product_Id
-        if(id!=null && modelArrayList!=null){
-            ProductRealmInstance.updateCartByProductId(id,count)
-        }
+    override fun onProductAdded(count: Int, productId: String) {
+      //  val id= modelArrayList?.get(position)?.product_Id
+            ProductRealmInstance.updateCartByProductId(productId,count)
+
     }
 }

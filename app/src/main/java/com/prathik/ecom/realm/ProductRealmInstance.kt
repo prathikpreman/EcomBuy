@@ -1,5 +1,6 @@
 package com.prathik.ecom.realm
 
+import android.util.Log
 import com.prathik.ecom.network.models.products.ProductModels
 import com.prathik.ecom.realm.products.ProductsModelR
 import io.realm.RealmResults
@@ -16,6 +17,8 @@ object ProductRealmInstance {
 
         return query
     }
+
+
 
 
     fun getAllProductsByCatId(catId:String?): RealmResults<ProductsModelR> {

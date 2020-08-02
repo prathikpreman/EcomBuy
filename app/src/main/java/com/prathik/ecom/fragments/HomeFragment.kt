@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.*
 import com.google.gson.Gson
+import com.prathik.ecom.MainActivity
 import com.prathik.ecom.R
 import com.prathik.ecom.SetLocation
 import com.prathik.ecom.adapter.CategoryAdapter
@@ -39,11 +40,13 @@ import com.prathik.ecom.utils.PreferenceManager
 import com.prathik.ecom.workmanager.RefreshAPIWorker
 import com.prathik.ecom.workmanager.RefreshAPIWorker.Companion.KEY_COUNT_VALUE
 import com.prathik.ecom.workmanager.RefreshAPIWorker.Companion.KEY_WORKER
+import com.roughike.bottombar.BottomBarTab
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController.ClickListener
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 import io.realm.RealmResults
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -73,9 +76,10 @@ class HomeFragment : Fragment(),FoodItemAdapter.OnProuctAddedListener {
 
     private lateinit var categoryAdapter: CategoryAdapter
     private  var categoryList: RealmResults<CategoryModelR> ?= null
+    lateinit var cartRealmObject:CartRealmObject
 
     private fun init() {
-
+        cartRealmObject=CartRealmObject
          modelArrayList  = ProductRealmInstance.getAllProducts()
          categoryList= CategoryRealmInstance.getAllCategory()
 
@@ -133,11 +137,32 @@ class HomeFragment : Fragment(),FoodItemAdapter.OnProuctAddedListener {
 
 
 
+
+
+
      //   periodicRequest()
 
 
-
     }
+
+
+
+
+    private fun setCartChangedListener(){
+        cartRealmObject.getCartSizeListener(object :CartRealmObject.OnCartSizeChangedListener{
+            override fun onCartSizeChanged(size: Int) {
+                Log.d(TAG,"Cart Changed !!!")
+                if (size > 0) {
+                    (activity as MainActivity).cartTab.setBadgeCount(size)
+                } else {
+                    (activity as MainActivity).cartTab.removeBadge()
+                }
+            }
+        })
+    }
+
+
+
 
     private fun setNameLocation(){
         if(PreferenceManager.getString(PreferenceManager.USER_NAME,"")==""){
@@ -145,6 +170,23 @@ class HomeFragment : Fragment(),FoodItemAdapter.OnProuctAddedListener {
         }else{
             hiNameTv.text="Hi ${PreferenceManager.getString(PreferenceManager.USER_NAME,"")}"
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        homseSlider.stopAutoCycle()
+        cartRealmObject.removeAllProductListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homseSlider.startAutoCycle()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setCartChangedListener()
     }
 
     private fun setNestedScrollViewListener(){
@@ -188,9 +230,6 @@ class HomeFragment : Fragment(),FoodItemAdapter.OnProuctAddedListener {
         homseSlider.scrollTimeInSec = 3
         homseSlider.isAutoCycle = true
         homseSlider.startAutoCycle()
-
-        homseSlider.startAutoCycle()
-
 
         var sliderItemList: ArrayList<SliderItem> = ArrayList()
         var sliderItem = SliderItem("","https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500")
@@ -313,11 +352,8 @@ class HomeFragment : Fragment(),FoodItemAdapter.OnProuctAddedListener {
     //    homeRecyclerView?.adapter = foodAdapter
     }
 
-    override fun onProductAdded(count: Int, position: Int) {
-        val id= modelArrayList?.get(position)?.product_Id
-        if(id!=null && modelArrayList!=null){
-            ProductRealmInstance.updateCartByProductId(id,count)
-        }
+    override fun onProductAdded(count: Int, productId: String) {
+            ProductRealmInstance.updateCartByProductId(productId,count)
     }
 
 

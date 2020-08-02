@@ -19,7 +19,7 @@ class ApplicationClass : Application() {
         val config = RealmConfiguration
             .Builder()
             .name("default.realm")
-            .schemaVersion(7)
+            .schemaVersion(8)
             .deleteRealmIfMigrationNeeded()
             .build()
         Realm.setDefaultConfiguration(config)

@@ -47,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:background="@drawable/rectangle"
                     android:layout_margin="10dp"
+                    android:id="@+id/placeOrderBtn"
                     android:layout_gravity="center"
                     android:clickable="true"
                     android:focusable="true"
@@ -74,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:textColor="#ffffff"
                         android:fontFamily="@font/mont_bold"
-                        android:text="Place Order"
+                        android:text="Review Order"
                         android:padding="16dp"
                         android:gravity="center_horizontal"
                         android:layout_height="wrap_content"/>

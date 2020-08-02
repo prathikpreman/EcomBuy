@@ -6,27 +6,31 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.prathik.ecom.R
-import com.prathik.ecom.adapter.model.ProductsAdapterModel
 import com.prathik.ecom.customView.AddButtonView
+import com.prathik.ecom.realm.GetRealmInstance
 import com.prathik.ecom.realm.products.ProductsModelR
+import io.realm.Case
+import io.realm.RealmQuery
 import io.realm.RealmRecyclerViewAdapter
 import io.realm.RealmResults
 
-class FoodItemAdapter public constructor(
+class SearchItemAdapter public constructor(
     context: Context,
     var modelArrayList: RealmResults<ProductsModelR>?,
     onProductAddedListener: OnProuctAddedListener
-) : RealmRecyclerViewAdapter<ProductsModelR, FoodItemAdapter.ViewHolder>(modelArrayList,true) {
+) : RealmRecyclerViewAdapter<ProductsModelR, SearchItemAdapter.ViewHolder>(modelArrayList,true),
+    Filterable {
 
     var contexts:Context?= context
     var onProductAddedListener:OnProuctAddedListener?= onProductAddedListener
-
+    val TAG="SearchActivity45"
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -38,7 +42,8 @@ class FoodItemAdapter public constructor(
     }
 
    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       val obj= modelArrayList?.get(position)
+
+       val obj= data?.get(position)
        // val (offerValue,foodName, offerPrice, reviewCount, price, imageUrl, V , Id,categoryId,offerType,foodDesc,count) = modelArrayList[position]
         holder.foodname.text = obj?.foodName
         holder.reviewCount.text = obj?.reviewCount.toString()
@@ -50,7 +55,7 @@ class FoodItemAdapter public constructor(
        contexts?.let { Glide.with(it).load(obj?.imageUrl).centerCrop().into(holder.foodImageUrl) };
       //  holder.History_Id.setImageResource(History_Id)
 
-       Log.d("Adapter123","Refreshed!!!")
+       Log.d("foodName35","Refreshed!!! $position")
 
        if(obj?.foodDescription=="") {
            holder.foodDesc.visibility=View.GONE
@@ -85,10 +90,10 @@ class FoodItemAdapter public constructor(
 
     override fun getItemCount(): Int {
         var size=0
-       return if(modelArrayList==null){
+       return if(data==null){
             0
         }else{
-            modelArrayList?.size!!
+            data?.size!!
         }
 
     }
@@ -119,6 +124,12 @@ class FoodItemAdapter public constructor(
         }
     }
 
+
+
+
+
+
+
     fun getOfferSymbol( offerValue:Float?, offerType:Int?):String{
 
         when(offerType){
@@ -134,8 +145,51 @@ class FoodItemAdapter public constructor(
     }
 
 
+
+
     interface OnProuctAddedListener{
         fun onProductAdded(count:Int, productId: String)
     }
+
+    override fun getFilter(): Filter {
+        var filter=FoodFilter(this)
+        return filter
+    }
+
+    class FoodFilter constructor(adapter: SearchItemAdapter) :
+        Filter() {
+        private val adapter: SearchItemAdapter = adapter
+        override fun performFiltering(constraint: CharSequence): FilterResults {
+            Log.d("foodName35","Perform Filtering")
+            return FilterResults()
+        }
+
+        override fun publishResults(
+            constraint: CharSequence,
+            results: FilterResults
+        ) {
+            Log.d("foodName35","Publish Result")
+            adapter.filterResults(constraint.toString())
+        }
+
+    }
+
+    fun filterResults(text:String){
+        text?.toLowerCase()?.trim()
+
+        val query: RealmQuery<ProductsModelR> = GetRealmInstance.instance.where(ProductsModelR::class.java)
+        if(!(text == null || "" == text)) {
+            query.contains("foodName", text, Case.INSENSITIVE)
+        }
+
+        Log.d("foodName35",":Inside filterResult")
+
+        for (obj in query.findAllAsync()){
+            Log.d("foodName35"," FOOD FOUND : ${obj.foodName}")
+        }
+
+          updateData(query.findAllAsync())
+    }
+
 
 }

@@ -13,6 +13,7 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.Gson
 import com.prathik.ecom.MainActivity
 import com.prathik.ecom.R
@@ -29,6 +30,7 @@ import java.util.concurrent.TimeUnit
 class Register : AppCompatActivity() {
 
 
+    private var TAG="REGISTERACTIVITY"
     private var mVerificationId: String? = null
     private var mVerificationMobile: String=""
 
@@ -223,9 +225,11 @@ class Register : AppCompatActivity() {
                         PreferenceManager.setString(PreferenceManager.PHONE_NUMBER,userDetail.user?.mobileNumber)
                         PreferenceManager.setString(PreferenceManager.USER_ID,userDetail.user?.Id)
 
-                        val intent = Intent(this@Register, MainActivity::class.java)
+                        /*val intent = Intent(this@Register, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
+                        startActivity(intent)*/
+
+                        setFCMIDandStartApp()
 
                     }else if(userDetail?.status==500){
 
@@ -309,9 +313,7 @@ class Register : AppCompatActivity() {
                             PreferenceManager.setString(PreferenceManager.PHONE_NUMBER,userDetail.user?.mobileNumber)
                             PreferenceManager.setString(PreferenceManager.USER_ID,userDetail.user?.Id)
 
-                            val intent = Intent(this@Register, MainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(intent)
+                           setFCMIDandStartApp()
 
                         }
                        else{
@@ -323,6 +325,27 @@ class Register : AppCompatActivity() {
 
 
     }
+
+
+    private fun setFCMIDandStartApp(){
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(OnCompleteListener { task ->
+                // 2
+                if (!task.isSuccessful) {
+                    Log.w(TAG, "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+                // 3
+                val token = task.result?.token
+
+                 Log.d(TAG, token)
+
+                PreferenceManager.setString(PreferenceManager.FCM_TOKEN,token)
+                val intent = Intent(this@Register, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            })
+    }
+
 
 
 }

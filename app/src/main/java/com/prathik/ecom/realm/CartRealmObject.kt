@@ -1,11 +1,8 @@
 package com.prathik.ecom.realm
 
-import com.prathik.ecom.R
-import com.prathik.ecom.network.models.products.ProductModels
 import com.prathik.ecom.realm.products.ProductsModelR
 import io.realm.RealmChangeListener
 import io.realm.RealmResults
-import kotlinx.android.synthetic.main.fragment_cart.*
 
 object CartRealmObject {
 
@@ -33,27 +30,50 @@ object CartRealmObject {
     }
 
 
+    lateinit var entries: RealmResults<ProductsModelR>
+
     fun getCartTotalListener(onCartTotalChangedListener: OnCartTotalChangedListener){
 
         GetRealmInstance.instance.beginTransaction()
-        val query= GetRealmInstance.instance.where(ProductsModelR::class.java).greaterThan("count",0).findAll()
+        entries= GetRealmInstance.instance.where(ProductsModelR::class.java).greaterThan("count",0).findAll()
         GetRealmInstance.instance.commitTransaction()
-        query.addChangeListener(RealmChangeListener { person ->
+        entries.addChangeListener(RealmChangeListener { person ->
             var total=0F
-            if(query!=null){
-                for (obj in query){
+            if(entries!=null){
+                for (obj in entries){
                     total += obj.count * obj.price
                 }
             }
             onCartTotalChangedListener.onCartTotalChanged(total)
         })
 
+    }
 
+    fun removeAllProductListeners(){
+        entries.removeAllChangeListeners()
+    }
+
+
+    fun getCartSizeListener(onCartSizeChangedListener: OnCartSizeChangedListener) {
+        GetRealmInstance.instance.beginTransaction()
+        entries = GetRealmInstance.instance.where(ProductsModelR::class.java).greaterThan("count", 0).findAll()
+        GetRealmInstance.instance.commitTransaction()
+        entries.addChangeListener(RealmChangeListener{ size->
+            onCartSizeChangedListener.onCartSizeChanged(entries.size)
+        })
+    }
+
+    fun close(){
+        GetRealmInstance.close()
     }
 
 
     interface OnCartTotalChangedListener{
         fun onCartTotalChanged(total:Float)
+    }
+
+    interface OnCartSizeChangedListener{
+        fun onCartSizeChanged(size:Int)
     }
 
 }

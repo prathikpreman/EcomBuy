@@ -18,6 +18,8 @@ object PreferenceManager {
     var PHONE_NUMBER:String="PHONE_NUMBER"
     var IS_LOGGED_IN:String="IS_LOGGED_IN"
 
+    var FCM_TOKEN:String="FCM_TOKEN"
+
     var SET_WORKMANAGER:String="SET_WORKMANAGER"
 
 

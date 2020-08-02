@@ -24,7 +24,7 @@ import io.realm.RealmResults
 class CategoryAdapter constructor(
     context: Context,
     var categoryList: RealmResults<CategoryModelR>?)
-    : RealmRecyclerViewAdapter<CategoryModelR, CategoryAdapter.ViewHolder>(context,categoryList,true) {
+    : RealmRecyclerViewAdapter<CategoryModelR, CategoryAdapter.ViewHolder>(categoryList,true) {
 
     var contexts:Context?= context
 
@@ -45,7 +45,7 @@ class CategoryAdapter constructor(
            holder.categoryName.text=obj.categoryName
 
            holder.categoryParentLayout.setOnClickListener {
-               var intent=Intent(context,CategoryProducts::class.java)
+               var intent=Intent(contexts,CategoryProducts::class.java)
                intent.putExtra(AppConstants.CATEGORY_ID,obj.categoryId)
                contexts?.startActivity(intent)
            }
