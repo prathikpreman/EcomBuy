@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         cartFragment = CartFragment()
         profileFragment = ProfileFragment()
 
-
+   // test
 
 
     }
