@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EcomBuy</string>
+    <string name="app_name">EcomBuy ShopKeeper</string>
     <string name="title_activity_set_location">Map</string>
     <string name="menu_search">Search</string>
 

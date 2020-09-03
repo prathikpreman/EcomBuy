@@ -11,7 +11,7 @@
         tools:context=".fragments.OrderHistoryFragment">
 
 
-    <com.prathik.ecom.customView.EmptyLayout
+    <com.prathik.ecomshopkeeper.customView.EmptyLayout
             android:layout_width="match_parent"
             app:titleText="No Order History"
             app:image="@drawable/food"

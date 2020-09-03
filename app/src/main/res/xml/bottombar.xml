@@ -1,26 +1,30 @@
 <tabs>
     <tab
         id="@+id/tab_home"
-        icon="@drawable/ic_menu"
-        activeColor="#f15421"
-        inActiveColor="#d3d3d3"/>
+        icon="@drawable/ic_dessert"
+        activeColor="@color/black"
+            title="Home"
+            inActiveColor="@color/gray2"/>
     <tab
         id="@+id/tab_history"
-        icon="@drawable/ic_history"
-        activeColor="#f15421"
-        inActiveColor="#d3d3d3"/>
+        icon="@drawable/ic_bill"
+        activeColor="@color/black"
+            title="Orders"
+            inActiveColor="@color/gray2"/>
 
     <tab
         id="@+id/tab_cart"
-        icon="@drawable/ic_cart"
-        activeColor="#f15421"
-        inActiveColor="#d3d3d3"/>
+        icon="@drawable/ic_bag"
+        activeColor="@color/black"
+            title="My Cart"
+            inActiveColor="@color/gray2"/>
 
     <tab
         id="@+id/tab_profile"
-        icon="@drawable/ic_usernew"
-        activeColor="#f15421"
-        inActiveColor="#d3d3d3"/>
+        icon="@drawable/ic_profile"
+            title="Me"
+            activeColor="@color/black"
+        inActiveColor="@color/gray2"/>
 
 </tabs>
 

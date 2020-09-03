@@ -17,7 +17,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.prathik.ecom"
+        applicationId "com.prathik.ecomshopkeeper"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1

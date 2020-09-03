@@ -48,22 +48,19 @@
 
         </LinearLayout>
 
-        <LinearLayout android:layout_width="0dp"
-                      android:layout_weight="2"
-                      android:layout_gravity="center"
-                      android:id="@+id/whiteToolbarSearch"
-                      android:gravity="center"
-                      android:layout_height="match_parent">
+
 
             <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/whiteToolbarSearch"
+                    android:padding="18dp"
+                    android:background="@drawable/white_round_ripple"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_search"
                     android:tint="#353535"/>
-
-
-        </LinearLayout>
 
 
     </LinearLayout>

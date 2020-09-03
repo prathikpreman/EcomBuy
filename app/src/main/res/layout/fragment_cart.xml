@@ -94,7 +94,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.prathik.ecom.customView.EmptyLayout
+    <com.prathik.ecomshopkeeper.customView.EmptyLayout
             android:layout_width="match_parent"
             app:titleText="Your cart is Empty"
             android:id="@+id/cart_empty_layout"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.prathik.ecom">
+        package="com.prathik.ecomshopkeeper">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -11,18 +11,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:name=".ApplicationClass"
+            android:name="com.prathik.ecomshopkeeper.ApplicationClass"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity">
+        <activity android:name="com.prathik.ecomshopkeeper.SearchActivity">
 
         </activity>
-        <activity android:name=".ReviewActivity" />
-        <activity android:name=".CategoryProducts" />
+        <activity android:name="com.prathik.ecomshopkeeper.ReviewActivity" />
+        <activity android:name="com.prathik.ecomshopkeeper.CategoryProducts" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,19 +36,19 @@
                 android:value="@string/google_maps_key" />
 
         <activity
-                android:name=".SetLocation"
+                android:name="com.prathik.ecomshopkeeper.SetLocation"
                 android:label="@string/title_activity_set_location" />
-        <activity android:name=".user.Register">
+        <activity android:name="com.prathik.ecomshopkeeper.user.Register">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.prathik.ecomshopkeeper.MainActivity" />
 
         <service
-                android:name=".firebase.MyFirebaseMessagingService"
+                android:name="com.prathik.ecomshopkeeper.firebase.MyFirebaseMessagingService"
                 android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

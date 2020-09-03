@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1044288137061:android:abac58925b2633e5d1238c",
         "android_client_info": {
-          "package_name": "com.prathik.ecom"
+          "package_name": "com.prathik.ecomshopkeeper"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1044288137061-5ehh93ds828qqvmknmsas3mk04ve91qm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.prathik.ecom",
+            "package_name": "com.prathik.ecomshopkeeper",
             "certificate_hash": "5eeade64f90d36c4761472c4e0bd9b1f44c8d193"
           }
         },

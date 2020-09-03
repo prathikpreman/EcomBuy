@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/homeToolbarPad"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
         android:visibility="visible">
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:visibility="visible"
+            android:background="@color/colorAccent"
+            android:id="@+id/toolbarMainBar"
             android:orientation="horizontal">
 
         <LinearLayout
@@ -52,18 +62,20 @@
 
         <LinearLayout
                 android:id="@+id/toolbarSearch"
-                android:layout_width="0dp"
+                android:layout_width="60dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_weight="2"
                 android:gravity="center">
 
             <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
+                    android:padding="15dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/round_ripple"
                     android:src="@drawable/ic_search"
                     android:tint="@color/white" />
 
@@ -74,4 +86,19 @@
     </LinearLayout>
 
 
-</androidx.appcompat.widget.Toolbar>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:text="OFFERS"
+                android:id="@+id/stickyText"
+                android:padding="10dp"
+                android:visibility="gone"
+                android:fontFamily="@font/mont_bold"
+                android:background="@color/white2"
+                android:layout_height="match_parent"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

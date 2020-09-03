@@ -102,7 +102,8 @@
                             android:layout_height="match_parent">
 
 
-                        <com.prathik.ecom.customView.AddButtonView android:layout_width="wrap_content"
+                        <com.prathik.ecomshopkeeper.customView.AddButtonView
+                                android:layout_width="wrap_content"
                                 android:id="@+id/foodAddbtnView"
                                 android:layout_height="wrap_content"/>
 
